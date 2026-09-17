@@ -1,5 +1,5 @@
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { Heart, Search, ShoppingBag, X, Check, Sparkles } from "lucide-react";
+import { Heart, Search, ShoppingBag, X, Check, Sparkles, AlertCircle, RefreshCw } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { useRoute } from "wouter";
 import { CafeLayout } from "@/components/CafeLayout";
@@ -8,6 +8,7 @@ import { ProductModal } from "@/components/ProductModal";
 import { Reveal, cinematicEase } from "@/components/motion/CinematicMotion";
 import { CafeProduct, formatPkr, useCafe } from "@/contexts/CafeContext";
 import { trpc } from "@/lib/trpc";
+import { DEFAULT_MENU_CATEGORIES } from "@/data/defaultMenu";
 
 export default function MenuPage() {
   const [, params] = useRoute("/menu/:categorySlug");
@@ -16,13 +17,136 @@ export default function MenuPage() {
   const [search, setSearch] = useState("");
   const [selected, setSelected] = useState<CafeProduct | null>(null);
   const reducedMotion = useReducedMotion();
-  useEffect(() => { if (params?.categorySlug) setActiveCategory(params.categorySlug); }, [params?.categorySlug]);
-  const products = useMemo(() => (menuQuery.data ?? []).flatMap(category => category.products.map(product => ({ ...product, categorySlug: category.slug, categoryName: category.name }))), [menuQuery.data]);
-  const matchingProducts = useMemo(() => products.filter(product => (activeCategory === "all" || product.categorySlug === activeCategory) && `${product.name} ${product.description} ${product.categoryName}`.toLowerCase().includes(search.toLowerCase().trim())), [products, activeCategory, search]);
+
+  useEffect(() => {
+    if (params?.categorySlug) setActiveCategory(params.categorySlug);
+  }, [params?.categorySlug]);
+
+  const rawCategories = useMemo(() => {
+    if (menuQuery.data && menuQuery.data.length > 0) {
+      return menuQuery.data;
+    }
+    return DEFAULT_MENU_CATEGORIES;
+  }, [menuQuery.data]);
+
+  const categories = useMemo(() => {
+    return [{ slug: "all", name: "All" }, ...rawCategories];
+  }, [rawCategories]);
+
+  const products = useMemo(() => {
+    return rawCategories.flatMap(category =>
+      category.products.map(product => ({
+        ...product,
+        categorySlug: category.slug,
+        categoryName: category.name,
+      }))
+    );
+  }, [rawCategories]);
+
+  const matchingProducts = useMemo(() => {
+    const query = search.toLowerCase().trim();
+    return products.filter(product => {
+      const matchesCategory = activeCategory === "all" || product.categorySlug === activeCategory;
+      if (!matchesCategory) return false;
+      if (!query) return true;
+
+      const searchableText = `${product.name} ${product.description} ${product.categoryName} ${product.categorySlug} ${product.size || ""}`.toLowerCase();
+
+      if (query === "coffee") {
+        return (
+          product.categorySlug === "espresso-based" ||
+          product.categorySlug === "slow-bar" ||
+          searchableText.includes("coffee") ||
+          searchableText.includes("espresso") ||
+          searchableText.includes("latte")
+        );
+      }
+      if (query === "cake") {
+        return (
+          product.categorySlug === "desserts" ||
+          searchableText.includes("cake") ||
+          searchableText.includes("pie") ||
+          searchableText.includes("brownie")
+        );
+      }
+      if (query === "chocolate") {
+        return (
+          searchableText.includes("chocolate") ||
+          searchableText.includes("mocha") ||
+          searchableText.includes("brownie")
+        );
+      }
+      if (query === "sandwich") {
+        return (
+          product.categorySlug === "sandwiches" ||
+          searchableText.includes("sandwich")
+        );
+      }
+
+      return searchableText.includes(query);
+    });
+  }, [products, activeCategory, search]);
 
   return <CafeLayout>
     <section className="relative overflow-hidden px-4 pb-20 pt-28 sm:px-6 lg:px-8"><div aria-hidden="true" className="absolute left-1/2 top-0 h-96 w-[42rem] -translate-x-1/2 rounded-full bg-[#bc7138]/12 blur-[130px]" /><div className="relative mx-auto max-w-7xl"><Reveal blur={false}><div className="glass-panel-soft inline-flex items-center gap-2 rounded-full px-4 py-2 text-[0.62rem] font-bold uppercase tracking-[.2em] text-[#e4b878]"><Sparkles size={13} /> The coffee list</div><h1 className="mt-7 font-display text-7xl leading-[.78] tracking-[-.06em] text-[#fff7eb] sm:text-8xl">The menu.</h1><p className="mt-6 max-w-xl text-sm leading-7 text-[#d2bba3]">Exactly the Coffeemistry menu, made easy to explore.</p></Reveal></div></section>
-    <section className="px-4 pb-24 sm:px-6 lg:px-8"><div className="mx-auto max-w-7xl"><Reveal><div className="glass-panel rounded-[1.8rem] p-4 sm:p-5"><motion.label layout className="relative block max-w-xl" transition={{ duration: reducedMotion ? .01 : .35, ease: cinematicEase }}><Search className="absolute left-5 top-1/2 size-4 -translate-y-1/2 text-[#d4a66d]" /><input value={search} onChange={event => setSearch(event.target.value)} placeholder="Search coffee, cake, chocolate, sandwich…" className="h-13 w-full rounded-2xl border border-white/12 bg-[#100b08]/55 pl-12 pr-12 text-sm text-[#f5eee4] outline-none transition-[border,box-shadow,transform] duration-300 placeholder:text-[#c0a891]/55 focus:scale-[1.005] focus:border-[#d4a66d]/65 focus:ring-4 focus:ring-[#c98d52]/10" />{search && <button onClick={() => setSearch("")} className="absolute right-3 top-1/2 grid size-8 -translate-y-1/2 place-items-center rounded-full text-[#d5bda5] transition hover:bg-white/8" aria-label="Clear search"><X size={15} /></button>}</motion.label><div className="mt-5 flex gap-2 overflow-x-auto pb-1">{[{ slug: "all", name: "All" }, ...(menuQuery.data ?? [])].map(category => <button key={category.slug} onClick={() => setActiveCategory(category.slug)} className={`relative shrink-0 overflow-hidden rounded-full border px-4 py-2.5 text-[.66rem] font-bold uppercase tracking-[.13em] transition ${activeCategory === category.slug ? "border-[#e4b878]/45 text-[#160d09]" : "border-white/10 bg-white/[.035] text-[#d8c0a8] hover:border-[#d8a46a]/40 hover:text-[#f5eee4]"}`}>{activeCategory === category.slug && <motion.span layoutId="active-menu-category" className="absolute inset-0 -z-10 rounded-full bg-[#e3b572]" transition={{ duration: reducedMotion ? .01 : .32, ease: cinematicEase }} />}{category.name}</button>)}</div></div></Reveal>{menuQuery.isLoading ? <MenuSkeleton /> : matchingProducts.length ? <AnimatePresence mode="wait"><motion.div key={`${activeCategory}:${search}`} initial={{ opacity: 0, y: reducedMotion ? 0 : 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: reducedMotion ? 0 : -8 }} transition={{ duration: reducedMotion ? .01 : .28, ease: cinematicEase }} className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">{matchingProducts.map((product, index) => <MenuCard key={product.id} product={product} index={index} onOpen={() => setSelected(product)} />)}</motion.div></AnimatePresence> : <motion.div initial={{ opacity: 0, scale: .98 }} animate={{ opacity: 1, scale: 1 }} className="glass-panel mt-10 rounded-[1.8rem] px-6 py-16 text-center"><p className="font-display text-4xl text-[#f7ede2]">Nothing brewed for that search.</p><p className="mt-3 text-sm text-[#cbb29a]">Try a coffee, cake, chocolate, or sandwich.</p></motion.div>}</div></section><ProductModal product={selected} onClose={() => setSelected(null)} />
+    <section className="px-4 pb-24 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl">
+        {menuQuery.isError && (
+          <div className="mb-6 flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-amber-500/25 bg-amber-500/10 p-4 text-xs text-amber-200">
+            <div className="flex items-center gap-2">
+              <AlertCircle size={15} className="shrink-0 text-amber-400" />
+              <span>Live catalog sync paused. Displaying complete local menu catalog.</span>
+            </div>
+            <button
+              onClick={() => menuQuery.refetch()}
+              className="inline-flex items-center gap-1.5 rounded-full border border-amber-400/30 bg-amber-500/20 px-3 py-1 text-[0.65rem] font-bold uppercase tracking-wider text-amber-100 hover:bg-amber-500/30 transition"
+            >
+              <RefreshCw size={12} /> Retry Sync
+            </button>
+          </div>
+        )}
+        <Reveal>
+          <div className="glass-panel rounded-[1.8rem] p-4 sm:p-5">
+            <motion.label layout className="relative block max-w-xl" transition={{ duration: reducedMotion ? .01 : .35, ease: cinematicEase }}>
+              <Search className="absolute left-5 top-1/2 size-4 -translate-y-1/2 text-[#d4a66d]" />
+              <input value={search} onChange={event => setSearch(event.target.value)} placeholder="Search coffee, cake, chocolate, sandwich…" className="h-13 w-full rounded-2xl border border-white/12 bg-[#100b08]/55 pl-12 pr-12 text-sm text-[#f5eee4] outline-none transition-[border,box-shadow,transform] duration-300 placeholder:text-[#c0a891]/55 focus:scale-[1.005] focus:border-[#d4a66d]/65 focus:ring-4 focus:ring-[#c98d52]/10" />
+              {search && <button onClick={() => setSearch("")} className="absolute right-3 top-1/2 grid size-8 -translate-y-1/2 place-items-center rounded-full text-[#d5bda5] transition hover:bg-white/8" aria-label="Clear search"><X size={15} /></button>}
+            </motion.label>
+            <div className="mt-5 flex gap-2 overflow-x-auto pb-1">
+              {categories.map(category => (
+                <button
+                  key={category.slug}
+                  onClick={() => setActiveCategory(category.slug)}
+                  className={`relative shrink-0 overflow-hidden rounded-full border px-4 py-2.5 text-[.66rem] font-bold uppercase tracking-[.13em] transition ${activeCategory === category.slug ? "border-[#e4b878]/45 text-[#160d09]" : "border-white/10 bg-white/[.035] text-[#d8c0a8] hover:border-[#d8a46a]/40 hover:text-[#f5eee4]"}`}
+                >
+                  {activeCategory === category.slug && (
+                    <motion.span layoutId="active-menu-category" className="absolute inset-0 -z-10 rounded-full bg-[#e3b572]" transition={{ duration: reducedMotion ? .01 : .32, ease: cinematicEase }} />
+                  )}
+                  {category.name}
+                </button>
+              ))}
+            </div>
+          </div>
+        </Reveal>
+        {menuQuery.isLoading && !products.length ? (
+          <MenuSkeleton />
+        ) : matchingProducts.length ? (
+          <AnimatePresence mode="wait">
+            <motion.div key={`${activeCategory}:${search}`} initial={{ opacity: 0, y: reducedMotion ? 0 : 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: reducedMotion ? 0 : -8 }} transition={{ duration: reducedMotion ? .01 : .28, ease: cinematicEase }} className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              {matchingProducts.map((product, index) => <MenuCard key={product.id} product={product} index={index} onOpen={() => setSelected(product)} />)}
+            </motion.div>
+          </AnimatePresence>
+        ) : (
+          <motion.div initial={{ opacity: 0, scale: .98 }} animate={{ opacity: 1, scale: 1 }} className="glass-panel mt-10 rounded-[1.8rem] px-6 py-16 text-center">
+            <p className="font-display text-4xl text-[#f7ede2]">Nothing brewed for that search.</p>
+            <p className="mt-3 text-sm text-[#cbb29a]">
+              {search ? `No items found matching "${search}". Try searching for coffee, cake, chocolate, or sandwich.` : "No items found in this category."}
+            </p>
+          </motion.div>
+        )}
+      </div>
+    </section>
+    <ProductModal product={selected} onClose={() => setSelected(null)} />
   </CafeLayout>;
 }
 

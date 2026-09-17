@@ -6,18 +6,18 @@
   "rewrites": [
     {
       "source": "/api/(.*)",
-      "destination": "/api"
+      "destination": "/api/$1"
     },
     {
       "source": "/health",
-      "destination": "/api"
+      "destination": "/api/health"
     },
     {
       "source": "/manus-storage/(.*)",
       "destination": "/product/$1"
     },
     {
-      "source": "/((?!api/|health|manus-storage/|assets/|product/|favicon|robots|sitemap).*)$",
+      "source": "/(.*)",
       "destination": "/index.html"
     }
   ]
