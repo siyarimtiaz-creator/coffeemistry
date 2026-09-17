@@ -2,6 +2,9 @@
   "name": "coffeemistry-cafe",
   "version": "1.0.0",
   "type": "module",
+  "imports": {
+    "@shared/*": "./shared/*"
+  },
   "license": "MIT",
   "scripts": {
     "dev": "tsx watch server/_core/index.ts",
