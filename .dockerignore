@@ -1,0 +1,8 @@
+.git
+.manus
+.manus-logs
+node_modules
+dist
+coverage
+terminal_full_output
+*.log

@@ -1,0 +1,46 @@
+export const CAFE_CATEGORIES = [
+  { slug: "espresso-based", name: "Espresso Based", sortOrder: 1 },
+  { slug: "slow-bar", name: "Slow Bar", sortOrder: 2 },
+  { slug: "sandwiches", name: "Sandwiches", sortOrder: 3 },
+  { slug: "desserts", name: "Desserts", sortOrder: 4 },
+  { slug: "beverages", name: "Beverages", sortOrder: 5 },
+  { slug: "bakery-items", name: "Bakery Items", sortOrder: 6 },
+] as const;
+
+export const CAFE_PRODUCTS = [
+  { categorySlug: "espresso-based", slug: "espresso", name: "Espresso", size: "1.5 Oz.", description: "Liquid gold", pricePkr: 450 },
+  { categorySlug: "espresso-based", slug: "piccolo", name: "Piccolo", size: "3 Oz.", description: "A baby latte", pricePkr: 530 },
+  { categorySlug: "espresso-based", slug: "cortado", name: "Cortado", size: "4 Oz.", description: "A more concentrated latte", pricePkr: 630 },
+  { categorySlug: "espresso-based", slug: "cappuccino", name: "Cappuccino", size: "8 Oz.", description: "The OG milk drink", pricePkr: 700 },
+  { categorySlug: "espresso-based", slug: "latte", name: "Latte", size: "8 Oz.", description: "Creamy milky goodness", pricePkr: 700 },
+  { categorySlug: "espresso-based", slug: "flat-white", name: "Flat White", size: "8 Oz.", description: "The greatest kiwi gift to coffee", pricePkr: 700 },
+  { categorySlug: "espresso-based", slug: "mocha", name: "Mocha", size: "8 Oz.", description: "A delicious blend of chocolate & coffee", pricePkr: 750 },
+  { categorySlug: "espresso-based", slug: "spanish-latte", name: "Spanish Latte", size: "8 Oz.", description: "A sweeter & creamier latte", pricePkr: 750 },
+  { categorySlug: "espresso-based", slug: "iced-latte", name: "Iced Latte", size: "12 Oz.", description: "The perfect summer coffee", pricePkr: 750 },
+  { categorySlug: "espresso-based", slug: "iced-spanish-latte", name: "Iced Spanish Latte", size: "12 Oz.", description: "An iced & irresistable treat", pricePkr: 830 },
+  { categorySlug: "espresso-based", slug: "iced-mocha", name: "Iced Mocha", size: "12 Oz.", description: "Iced chocolaty heaven", pricePkr: 830 },
+  { categorySlug: "slow-bar", slug: "iced-aeropress-coffee", name: "Iced Aeropress Coffee", size: null, description: "Cafe style pressure brewed coffee featuring a refreshing and aromatic flavor profile.", pricePkr: 630 },
+  { categorySlug: "slow-bar", slug: "signature-aeropress-coffee", name: "Signature Aeropress Coffee", size: null, description: "A single origin coffee that shines in pour over methods", pricePkr: 650 },
+  { categorySlug: "slow-bar", slug: "iced-v60-coffee", name: "Iced V60 Coffee", size: null, description: "V60 over ice", pricePkr: 880 },
+  { categorySlug: "slow-bar", slug: "signature-v60-coffee", name: "Signature V60 Coffee", size: null, description: "A single origin coffee that shines in pour over methods", pricePkr: 880 },
+  { categorySlug: "sandwiches", slug: "roasted-chicken-sandwich", name: "Roasted Chicken Sandwich", size: null, description: "Superbly seasoned chicken on sourdough", pricePkr: 850 },
+  { categorySlug: "sandwiches", slug: "roasted-beef-sandwich", name: "Roasted Beef Sandwich", size: null, description: "Roast beef on Sourdough bread", pricePkr: 850 },
+  { categorySlug: "desserts", slug: "brownie", name: "Brownie", size: null, description: "Rich, fudgy chocolate treat, often topped with nuts or served with ice cream.", pricePkr: 500 },
+  { categorySlug: "desserts", slug: "apple-pie", name: "Apple Pie", size: null, description: "A sweet pastry filled with spiced apples, baked until golden and served warm.", pricePkr: 500 },
+  { categorySlug: "desserts", slug: "lemon-cake", name: "Lemon Cake", size: null, description: "Moist, tangy cake topped with a sweet, zesty lemon glaze for a refreshing treat.", pricePkr: 240 },
+  { categorySlug: "beverages", slug: "iced-chocolate", name: "Iced Chocolate", size: "12 Oz.", description: "Iced chocolaty heaven", pricePkr: 680 },
+  { categorySlug: "beverages", slug: "hot-chocolate", name: "Hot Chocolate", size: "8 Oz.", description: "Creamy rich concoction of the finest chocolate & milk", pricePkr: 630 },
+  { categorySlug: "bakery-items", slug: "signature-cookies", name: "Signature Cookies", size: null, description: "Nutella, Lotus and Marshmellows", pricePkr: 350 },
+  { categorySlug: "bakery-items", slug: "classic-cookies", name: "Classic Cookies", size: null, description: "Goeey Cookies", pricePkr: 300 },
+] as const;
+
+export const CAFE_BUSINESS = {
+  key: "primary",
+  businessName: "Coffeemistry",
+  shortAddress: "F-8/1, Islamabad.",
+  fullAddress: "Shop 1 & 2, Block 8 Allahwali Market, F-8/1, F-8, Islamabad, 44000, Pakistan",
+  phone: "+92 307 8263333",
+  whatsapp: "923078263333",
+  rating: "Unpublished",
+  reviewCount: 0,
+} as const;

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://coffeemenu-juytsaxg.manus.space/sitemap.xml

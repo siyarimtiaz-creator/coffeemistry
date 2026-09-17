@@ -1,0 +1,1 @@
+ALTER TABLE `orderPayments` ADD `receiptAccessTokenHash` varchar(128);

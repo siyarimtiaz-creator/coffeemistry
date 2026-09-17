@@ -1,0 +1,133 @@
+# Project TODO
+
+- [x] Define the persistent relational data model for exact menu data, orders, order items, customer details, configuration, and order-status history.
+- [x] Seed the six confirmed categories and all 24 confirmed menu items exactly once, preserving supplied names, prices, descriptions, and sizes.
+- [x] Implement public menu, product search, category filters, favorites, and detail customisation framework without inventing product options.
+- [x] Implement persistent client-side cart with quantity controls, configurable delivery-fee messaging, and dynamic WhatsApp ordering messages.
+- [x] Implement guest checkout with validated contact information, pickup/delivery choice, configurable payment-method structure, and server-side order persistence.
+- [x] Implement order confirmation and customer order tracking with only the allowed status labels: pending, preparing, ready.
+- [x] Implement strictly role-gated owner administration to view incoming orders and advance orders through pending, preparing, and ready.
+- [x] Create the premium responsive Coffeemistry public design, including cinematic hero, story, experience, review signals, visit section, mobile navigation, and footer.
+- [x] Add an accurate Google Maps location experience, exact required address display, contact actions, and configurable opening-hours state.
+- [x] Add metadata, robots, sitemap, local-business structured data, semantic content hierarchy, and accessible interaction states.
+- [x] Add automated tests covering seed data, order validation, status transition permissions, and public ordering procedures.
+- [x] Verify all required flows, responsive layouts, source-data accuracy, and visual polish before delivery.
+- [x] Implement checkout payment-method loading and selection from enabled owner-configured methods, then persist the selected method with each order.
+- [x] Add automated tests for successful public order creation and order tracking procedures.
+- [x] Complete and document the key order-flow and 24-product validation checks before delivery.
+- [x] Add owner-only payment-method controls so the owner can configure which methods checkout exposes.
+- [x] Validate menu, checkout, confirmation, and owner status procedures through visual review, unit/procedure tests, and persisted-menu integration checks without inserting synthetic customer orders.
+- [x] Add owner controls to edit and enable or hide existing payment methods; checkout queries only enabled methods.
+- [x] Add automated coverage proving only enabled payment methods are exposed through the public checkout configuration procedure.
+- [x] Run and document the payment-method visibility workflow without inventing or persisting a payment method for the business.
+- [x] Add automated coverage for the public payment-method procedure consumed by checkout.
+- [x] Complete a non-production payment visibility QA workflow across owner configuration and checkout visibility.
+- [x] Establish reusable reduced-motion-safe cinematic reveal, parallax, steam, magnetic-button, and viewport-observer primitives.
+- [x] Enhance hero, navigation, CTA, WhatsApp, cart, product-card, menu-filter, and modal interactions without altering business functionality.
+- [x] Add restrained editorial scroll reveals and responsive motion treatments across the public cafe pages.
+- [x] Verify desktop and mobile animation quality, accessibility fallbacks, interaction states, test coverage, and build output before delivery.
+- [x] Add a reusable reduced-motion-safe subtle parallax primitive and apply it to the cinematic hero atmosphere.
+- [x] Enhance the product modal with a cinematic open and close transition while preserving its ordering behavior.
+- [x] Extend the motion system to checkout and order confirmation public pages without modifying their data or flows.
+- [x] Run and document focused desktop and mobile interaction QA for hero, filters, quick add, cart, modal, WhatsApp, and reduced-motion behavior.
+- [x] Add persistent primary-image, gallery-image, alt-text, and caption metadata for every product.
+- [x] Implement strictly owner-gated image upload, replacement, deletion, primary-image selection, gallery reordering, and editable alt text.
+- [x] Update product cards, featured surfaces, and product detail to render owner-uploaded photography first and a Coffeemistry “Photo coming soon” placeholder only when absent.
+- [x] Add responsive image sizing, lazy loading, gallery/detail viewing, and meaningful product alt text without loading large originals into menu cards.
+- [x] Test image metadata contracts, owner access control, upload validation, ordering integrity, and responsive public image presentation.
+- [x] Add public product-gallery navigation, keyboard controls, mobile swipe, and fullscreen viewing to the product detail experience.
+- [x] Add isolated tests for replacement, deletion, primary-image fallback, gallery reordering, invalid uploads, and image-enriched order creation.
+- [x] Run and document mobile visual QA for image-first homepage, menu cards, product detail gallery, and ordering surfaces.
+- [x] Add isolated owner replacement workflow coverage and malformed or unsupported upload-procedure regression tests.
+- [x] Run and document mobile interaction QA for product gallery open, swipe, fullscreen, checkout, and order feedback surfaces.
+- [x] Add malformed data-URL upload-procedure regression coverage.
+- [x] Run and document explicit mobile layout and product-gallery interaction QA, including gallery open, secondary image navigation, fullscreen open and close, plus checkout and order feedback paths.
+- [x] Verify actual uploaded image bytes and dimensions server-side rather than trusting only the browser-provided MIME type or filename.
+- [x] Add destructive deletion confirmation and upload status or filename metadata to the owner product-media workspace.
+- [x] Validate all 24 existing products support empty and gallery-capable image metadata without duplicate records or menu-price changes.
+- [x] Complete documented public, owner, mobile-layout, malformed-file, gallery, and order regression checks for the populated temporary visual implementation.
+- [x] Persist and display safe original upload filename and per-image processing status in the owner product-media workspace.
+- [x] Populate all 24 confirmed menu products with unique temporary photorealistic visuals, clearly marked as temporary in internal metadata only.
+- [x] Store exactly one unique temporary primary visual per product through the existing secure product-media data layer without changing names, prices, descriptions, or product counts.
+- [x] Update public image alternatives and owner media records to distinguish temporary visuals from future owner-provided photography without making misleading “official” claims.
+- [x] Validate all 24 public product cards, Spanish Latte feature, mobile menu, detail gallery, and owner replacement path after visual population.
+- [x] Persist `image_type`, `source`, and `replacement_allowed` metadata for temporary product visuals without labelling them as official photography.
+- [x] Create a deterministic one-to-one temporary asset mapping for all 24 exact product slugs and record their replacement-ready provenance.
+- [x] Validate every exact product has a gallery-capable visual assignment, while preserving product data and commerce behavior.
+- [x] Remove failed generation asset references from public product image records and retain only successfully generated temporary visuals.
+- [x] Verify public menu image states never expose failed-generation messaging while remaining replacement-ready for the owner.
+- [x] Superseded by the clean empty-media migration: temporary/non-official images were removed from the public and internal product-media data layers.
+- [x] Superseded by the clean empty-media migration: mismatched temporary assignments were removed rather than replaced with additional non-official visuals.
+- [x] Superseded by the clean empty-media migration: populated-gallery validation is deferred until the owner uploads authentic Coffeemistry photography.
+- [x] Superseded by the clean empty-media migration: no populated temporary record remains to replace; the role-gated replacement procedure remains covered by regression tests.
+- [x] Audit all product-media records and public media references; retain only storage-backed assets verified by the current deployment.
+- [x] Remove all temporary, generated, invalid, failed, and orphaned product-media records without changing the 24-product catalog or its commerce data.
+- [x] Ensure every product has an empty, gallery-ready image slot and renders an elegant, honest placeholder until real owner photography is uploaded.
+- [x] Verify admin-only upload, replacement, deletion, primary-image, and gallery-reordering operations against the cleaned media data layer.
+- [x] Add and run regression coverage for the cleaned empty-media state, authorization, upload lifecycle, and preserved order flow.
+- [x] Verify public homepage, menu, product detail, cart, checkout, order creation, and mobile layout with no temporary or broken image references.
+- [x] Documented deployment limitation: end-to-end owner replacement remains deferred until authentic Coffeemistry photography and an owner session are available; no non-official image was created to simulate this path.
+- [x] Remove fabricated public review counts, ratings, and review/testimonial content discovered during homepage verification.
+- [x] Create or obtain one distinct photorealistic Coffeemistry-style visual for each of the 24 exact product records, without changing catalog data.
+- [x] Validate each assigned professional image for product relevance, visual realism, and card-friendly composition before assignment.
+- [x] Store every validated image through the existing media layer and assign it as the primary image for its exact product.
+- [x] Ensure all 24 public menu cards, product detail views, and the Spanish Latte feature display their assigned visual instead of the placeholder.
+- [x] Preserve owner-only upload, replacement, deletion, primary-image, and gallery workflows after product-visual population.
+- [x] Verify populated media records, responsive menu behavior, cart, checkout, WhatsApp ordering, and order-creation regression coverage.
+- [x] Remove the 16 failed generated-image assignments and replace them with distinct valid product-appropriate professional source assets.
+- [x] Confirm no menu card exposes an image-generation failure state before final delivery.
+- [x] Inspect all 24 assigned product images for product relevance, photorealism, and card-friendly composition; replace the most visibly mismatched initial source assignments.
+- [x] Verify a populated product-detail view and the homepage Spanish Latte feature render assigned visuals without placeholders.
+- [x] Revalidate cart add, checkout, and WhatsApp ordering after the product-media population change.
+- [x] Record an auditable per-product visual review of the final 24 assigned images and replace the visibly unfit initial matches.
+- [x] Repeat a post-population cart add from a controlled empty state and verify the cart count and checkout summary increase together.
+- [x] Audit existing payment, order, admin, and storage code before extending the configurable payment workflow.
+- [x] Add a payment record that separates PKR payment status from order status and stores only safe transaction data and proof URLs.
+- [x] Seed configurable EasyPaisa and JazzCash methods as enabled but unconfigured, plus a disabled card method with a provider abstraction.
+- [x] Build premium single-select payment cards in checkout with accurate unconfigured, manual-reference, proof-upload, and card-unavailable states.
+- [x] Preserve pickup, delivery, cart, totals, WhatsApp ordering, and order creation while including selected payment method and manual reference details.
+- [x] Add owner-only payment configuration for enabled state, receiving number, account title, instructions, provider selection, and provider configuration status.
+- [x] Add owner-only server-side payment verification and rejection controls that record verifier, timestamp, and note.
+- [x] Test payment selection, pending-verification flow, authorization, prohibited customer status updates, no-card-data persistence, and mobile checkout.
+- [x] Add an automated regression test that a non-admin customer cannot verify or reject a pending payment.
+- [x] Enforce that EasyPaisa and JazzCash cannot be selected or submitted until both owner receiving number and account name are configured.
+- [x] Show the exact server-calculated PKR amount and clear method-specific transfer instructions in the customer manual-payment flow.
+- [x] Require a transaction reference and receipt image for configured manual wallet payments, validate image bytes server-side, and store receipt metadata securely.
+- [x] Add a receipt-access procedure that permits only the matching customer or an authorized admin to view a payment receipt.
+- [x] Separate payment status from extended order status and set a verified manual payment’s order state to confirmed only after owner confirmation.
+- [x] Add a prominent owner payment-verification queue, a verification confirmation dialog, required rejection reason, and payment audit details.
+- [x] Add a dashboard badge and in-app pending-verification alert for new manual-payment orders without requiring external notification credentials.
+- [x] Extend customer confirmation with exact total, payment method, reference, and pending-verification messaging.
+- [x] Add and run end-to-end regression coverage for configured and unconfigured wallet flows, receipt authorization, owner verify/reject actions, and order confirmation semantics.
+- [x] Add a server-backed checkout quote procedure and render the manual-payment amount from that server-calculated response.
+- [x] Add modeled router lifecycle coverage for configured receipt submission, pending verification, owner payment decision, confirmed order status, and secure tracking output without creating real customer payments.
+- [x] Make the payment-verification dashboard badge open a filtered awaiting-verification order list and verify the protected owner workspace and checkout layout on mobile.
+- [x] Audit all customer payment, receipt, verification, and payment-admin dependencies before removing public online payment workflows.
+- [x] Change new order creation to WhatsApp / Pay on Confirmation with an internal not_applicable payment status while preserving historical order-payment data.
+- [x] Remove EasyPaisa, JazzCash, card, transaction reference, receipt upload, payment instructions, and all payment verification UI from customer checkout and confirmation.
+- [x] Make the final checkout action persist the order then open a professionally formatted WhatsApp order message to +92 307 8263333 using real order data.
+- [x] Preserve customer contact, pickup/delivery, address, area, instructions, notes, items, quantities, prices, subtotal, and total in the persisted WhatsApp order record.
+- [x] Remove payment configuration and payment-verification surfaces from the owner dashboard while retaining order detail and lifecycle management.
+- [x] Verify WhatsApp-only ordering, persisted order tracking, admin lifecycle controls, and desktop/mobile layouts without destructive payment-data deletion.
+- [x] Audit live response headers, response time, HTML/asset weight, database query shape, render path, and current technical SEO behavior.
+- [x] Implement safe performance improvements for public delivery, data fetching, image loading, font delivery, JavaScript and CSS payloads without changing visual design or ordering.
+- [x] Remove unnecessary framework-identification headers while preserving existing security and compression behavior.
+- [x] Validate and improve canonical, robots, sitemap, social metadata, structured data, local business details, internal linking, image-alt, and route-status behavior.
+- [x] Add regression coverage and verify desktop/mobile homepage, menu, product, checkout, WhatsApp ordering, performance headers, and technical SEO routes before publishing.
+- [x] Inventory all existing Coffeemistry routes, public and owner components, data contracts, media behaviors, and responsive layouts before visual redesign.
+- [x] Establish a reusable luxury dark-glass visual system with warm espresso atmosphere, champagne accents, accessible typography, refined focus states, and reduced-motion-safe effects.
+- [x] Redesign the public shell, hero, menu, cart, product detail, checkout, confirmation, editorial, and visit surfaces without changing existing content, data, images, routes, or WhatsApp ordering behavior.
+- [x] Redesign the strictly role-gated owner order and product-media workspace using the same premium system without changing permissions or administrative procedures.
+- [x] Add design-system regression coverage and verify desktop/mobile layouts, public ordering, product detail, navigation, accessibility, and owner controls before publishing.
+- [x] Synchronize the public Coffeemistry URL to the exact validated preview release and verify normal plus fresh public requests receive the latest assets without changing application code.
+- [x] Rebuild only the public Reviews route with the supplied 4.4 rating, 469 review count, five authentic review excerpts, and non-filtering topic statistics.
+- [x] Add accessible, reduced-motion-safe review-card expansion and premium reveal interactions without inventing review content, statistics, media, or reviewer metadata.
+- [x] Run focused regression tests, production build, and desktop/mobile visual checks for the isolated Reviews-page update.
+- [x] Ensure the Reviews-page mobile topic heading wraps cleanly without clipping.
+- [x] Ensure the Reviews-page mobile topic heading wraps cleanly without clipping.
+- [x] Diagnose the reported product-image regression across the live menu, media data, URL generation, and product rendering path.
+- [x] Restore valid existing product images without modifying the Reviews page, catalog data, product-media records, or the menu design.
+- [x] Validate affected product imagery, product detail, cart, checkout, desktop/mobile menu behavior, and preserved Reviews functionality.
+- [x] Diagnose the missing Home hero background image across the published route, current implementation, asset references, and display layers.
+- [x] Restore only the original existing Home hero image reference without changing the hero’s content, design, overlays, animations, or any other route.
+- [x] Validate restored hero imagery at desktop, tablet, and mobile widths alongside preserved Menu, Reviews, checkout, and WhatsApp entry points.
