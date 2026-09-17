@@ -1,0 +1,24 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "vite",
+  "buildCommand": "pnpm build",
+  "outputDirectory": "dist/public",
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "/api"
+    },
+    {
+      "source": "/health",
+      "destination": "/api"
+    },
+    {
+      "source": "/manus-storage/(.*)",
+      "destination": "/product/$1"
+    },
+    {
+      "source": "/((?!api/|health|manus-storage/|assets/|product/|favicon|robots|sitemap).*)$",
+      "destination": "/index.html"
+    }
+  ]
+}
