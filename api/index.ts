@@ -12,12 +12,12 @@ app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ limit: "50mb", extended: true }));
 
 // Health check endpoints for cloud monitoring & testing
-app.get(["/health", "/api/health"], (_req, res) => {
+app.get(["/health", "/api/health", "/api", "/"], (_req, res) => {
   res.status(200).json({ status: "ok", service: "coffeemistry-api", timestamp: new Date().toISOString() });
 });
 
 // Direct REST catalog endpoint for testing and verified responses
-app.get(["/api/menu", "/api/menu/list", "/api/catalog"], async (_req, res) => {
+app.get(["/api/menu", "/api/menu/list", "/api/catalog", "/menu", "/menu/list", "/catalog"], async (_req, res) => {
   try {
     const menu = await getPublicMenu();
     res.status(200).json(menu);
